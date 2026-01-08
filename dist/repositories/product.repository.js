@@ -1,8 +1,12 @@
-import Product, { IProduct } from '../models/Product';
-import mongoose from 'mongoose';
-
-export const createProductRepo = async (payload: Partial<IProduct>) => {
-    const product = await Product.create(payload);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findProductById = exports.findProductsRepo = exports.deleteProductRepo = exports.updateProductRepo = exports.createProductRepo = void 0;
+const Product_1 = __importDefault(require("../models/Product"));
+const createProductRepo = async (payload) => {
+    const product = await Product_1.default.create(payload);
     return {
         id: product._id.toString(),
         name: product.name,
@@ -17,11 +21,11 @@ export const createProductRepo = async (payload: Partial<IProduct>) => {
         updatedAt: product.updatedAt
     };
 };
-
-export const updateProductRepo = async (id: string, payload: Partial<IProduct>) => {
-    const product = await Product.findByIdAndUpdate(id, payload, { new: true });
-    if (!product) return null;
-    
+exports.createProductRepo = createProductRepo;
+const updateProductRepo = async (id, payload) => {
+    const product = await Product_1.default.findByIdAndUpdate(id, payload, { new: true });
+    if (!product)
+        return null;
     return {
         id: product._id.toString(),
         name: product.name,
@@ -36,22 +40,19 @@ export const updateProductRepo = async (id: string, payload: Partial<IProduct>) 
         updatedAt: product.updatedAt
     };
 };
-
-export const deleteProductRepo = async (id: string) => {
-    return Product.findByIdAndDelete(id);
+exports.updateProductRepo = updateProductRepo;
+const deleteProductRepo = async (id) => {
+    return Product_1.default.findByIdAndDelete(id);
 };
-
-export const findProductsRepo = async (filter: any = {}) => {
-    const query: any = {};
-    
+exports.deleteProductRepo = deleteProductRepo;
+const findProductsRepo = async (filter = {}) => {
+    const query = {};
     if (filter.category) {
         query.category = filter.category;
     }
-    
     if (filter.isFamous !== undefined) {
         query.isFamous = filter.isFamous;
     }
-    
     if (filter.search) {
         const searchRegex = new RegExp(filter.search, 'i');
         query.$or = [
@@ -60,8 +61,7 @@ export const findProductsRepo = async (filter: any = {}) => {
             { ingredients: { $in: [searchRegex] } }
         ];
     }
-    
-    const products = await Product.find(query);
+    const products = await Product_1.default.find(query);
     return products.map(product => ({
         id: product._id.toString(),
         name: product.name,
@@ -76,11 +76,11 @@ export const findProductsRepo = async (filter: any = {}) => {
         updatedAt: product.updatedAt
     }));
 };
-
-export const findProductById = async (id: string) => {
-    const product = await Product.findById(id);
-    if (!product) return null;
-    
+exports.findProductsRepo = findProductsRepo;
+const findProductById = async (id) => {
+    const product = await Product_1.default.findById(id);
+    if (!product)
+        return null;
     return {
         id: product._id.toString(),
         name: product.name,
@@ -95,3 +95,4 @@ export const findProductById = async (id: string) => {
         updatedAt: product.updatedAt
     };
 };
+exports.findProductById = findProductById;

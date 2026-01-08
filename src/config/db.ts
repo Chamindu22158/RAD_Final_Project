@@ -3,7 +3,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/juice_shop';
+const MONGO_URI =
+    process.env.MONGO_URI ||
+    'mongodb+srv://chamindu_db_user:IJSE%40123@freshdrinky.edetyjp.mongodb.net/';
+
 
 
 export const connectDB = async () => {
