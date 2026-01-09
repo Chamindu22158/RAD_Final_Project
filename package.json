@@ -1,5 +1,5 @@
 {
-  "name": "reqcult-project-backend",
+  "name": "reqcult-project-backend" ,
   "version": "1.0.0",
   "description": "",
   "main": "dist/server.js",
