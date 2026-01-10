@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 
 export interface IUser extends Document {
-    username: string;
+    username:  string;
     email: string;
     password: string;
     role: 'user' | 'admin';
